@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
 import Form from './components/Form';
 import DisplayPosts from './components/DisplayPosts';
-import axios from 'axios';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
+
 class App extends Component {
   state = {
     posts: []
   }
-
-  componentDidMount = () => {
-    this.fetchPosts();
-  };
-
-  fetchPosts = () => {
-    axios.get('/posts')
-      .then((response) => {
-        const { posts } = response.data;
-        this.setState({ posts: [...this.state.posts, ...posts] })
-      })
-      .catch(() => alert('Error fetching new posts'));
-  };
-
 
   addPost = ({ issue_type, summary, description, priority }) => {
     this.setState({
@@ -30,11 +17,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Form addPost={this.addPost}/>
-        < DisplayPosts posts={this.state.posts} />
-
-      </div>
+      <Router>
+        <div className="App">
+          <Form addPost={this.addPost}/>
+          <Route path="/" exact component={DisplayPosts}/>
+        </div>
+      </Router>
     );
   }
 }

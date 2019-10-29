@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import axios from 'axios';
 
 const { isEmpty } = require('lodash');
 
 
 
 class DisplayPosts extends Component {
+    state = {
+        posts: []
+    }
+    
+    componentDidMount = () => {
+        this.fetchPosts();
+    };
+
+    fetchPosts = () => {
+        axios.get('/posts')
+          .then((response) => {
+            const { posts } = response.data;
+            this.setState({ posts: [...this.state.posts, ...posts] })
+          })
+          .catch(() => alert('Error fetching new posts'));
+      };
+
     render() {
-        const allPosts = this.props.posts;
+        console.log('display posts render');
+        const allPosts = this.state.posts;
         const posts = !isEmpty(allPosts) ? allPosts : [];
 
         return (
