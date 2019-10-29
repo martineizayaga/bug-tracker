@@ -4,9 +4,10 @@ import axios from 'axios';
 
 class Form extends Component {
   state = {
-    name: '',
-    position: '',
-    company: ''
+    issue_type: '',
+    summary: '',
+    description: '',
+    priority: ''
   };
 
   handleChange = e => {
@@ -17,22 +18,29 @@ class Form extends Component {
 
   submit = e => {
     e.preventDefault();
-    const { name, position, company } = this.state;
+    const { 
+      issue_type: issue_type,
+      summary: summary,
+      description: description,
+      priority: priority
+    } = this.state;
     axios({
       url: '/add',
       method: 'POST',
       data: {
-        name,
-        position,
-        company
+        issue_type: issue_type,
+        summary: summary,
+        description: description,
+        priority: priority
       }
     })
       .then((response) => {
-        this.props.addUser(response.data);
+        this.props.addPost(response.data);
         this.setState({
-          name: '',
-          company: '',
-          position: ''
+          issue_type: '',
+          summary: '',
+          description: '',
+          priority: ''
         });
       })
       .catch(() => alert('Failed uploading data'))
@@ -43,26 +51,34 @@ class Form extends Component {
         <h2>Please, Tell us about you</h2>
         <TextField
           id="standard-dense"
-          value={this.state.name}
-          label="Name"
-          name="name"
+          value={this.state.issue_type}
+          label="Issue Type"
+          name="issue_type"
           onChange={this.handleChange}
         />
 
         <TextField
-          name="company"
-          value={this.state.company}
+          name="description"
+          value={this.state.description}
           id="standard-dense"
           onChange={this.handleChange}
-          label="Company"
+          label="Description"
         />
 
         <TextField
-          name="position"
-          value={this.state.position}
+          name="summary"
+          value={this.state.summary}
           id="standard-dense"
           onChange={this.handleChange}
-          label="Position"
+          label="Summary"
+        />
+
+        <TextField
+          name="priority"
+          value={this.state.priority}
+          id="standard-dense"
+          onChange={this.handleChange}
+          label="Priority"
         />
 
         <Button variant="contained" color="primary" onClick={this.submit}> Submit </Button>

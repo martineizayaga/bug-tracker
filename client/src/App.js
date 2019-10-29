@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Form from './components/Form';
-import DisplayUsers from './components/DisplayUsers';
+import DisplayPosts from './components/DisplayPosts';
 import axios from 'axios';
 import './App.css';
 class App extends Component {
@@ -13,26 +13,26 @@ class App extends Component {
   };
 
   fetchUsers = () => {
-    axios.get('/users')
+    axios.get('/posts')
       .then((response) => {
-        const { users } = response.data;
-        this.setState({ users: [...this.state.users, ...users] })
+        const { posts } = response.data;
+        this.setState({ users: [...this.state.posts, ...posts] })
       })
       .catch(() => alert('Error fetching new users'));
   };
 
 
-  addUser = ({ name, position, company }) => {
+  addPost = ({ issue_type, summary, description, priority }) => {
     this.setState({
-      users: [...this.state.users, { name, position, company }]
+      users: [...this.state.posts, { issue_type, summary, description, priority }]
     });
   };
 
   render() {
     return (
       <div className="App">
-        <Form addUser={this.addUser}/>
-        < DisplayUsers users={this.state.users} />
+        <Form addPost={this.addPost}/>
+        < DisplayPosts posts={this.state.posts} />
 
       </div>
     );
