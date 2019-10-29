@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableHead, TableRow, Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const { isEmpty } = require('lodash');
-
-
 
 class DisplayPosts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            posts: [],
         }
     }
     
     componentDidMount = () => {
-        console.log('display posts props', this.props)
         this.fetchPosts();
     };
 
@@ -55,6 +53,7 @@ class DisplayPosts extends Component {
                         ))}
                     </TableBody>
                 </Table> : null}
+                <Button variant="contained" to="/create" component={Link}>Create</Button>
             </div>
         );
     }

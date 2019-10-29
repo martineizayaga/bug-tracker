@@ -11,7 +11,6 @@ class Form extends Component {
       description: '',
       priority: ''
     };
-    console.log('constructor', this.props)
   }
 
   handleChange = e => {
@@ -48,7 +47,6 @@ class Form extends Component {
         });
       })
       .catch(() => alert('Failed uploading data'))
-      console.log('this.props', this.props)
       this.props.history.push('/');
   };
   render() {
