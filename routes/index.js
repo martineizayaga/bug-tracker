@@ -1,7 +1,21 @@
 const express = require('express');
 const { isEmpty } = require('lodash');
-const User = require('../models/user');
+const Post = require('../models/post');
 const router = express.Router();
+
+router.get('/posts', async (req, res) => {
+    try {
+        const posts = await Post.find({});
+
+        return res.json({
+            posts
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Internal Server error'
+        });
+    }
+});
 
 router.post('/add', async (req, res) => {
     if (isEmpty(req.body)) {
@@ -10,22 +24,24 @@ router.post('/add', async (req, res) => {
             statusCode: 403
         });
     }
-    const { name, position, company } = req.body;
+    const { issue_type, summary, description, priority } = req.body;
 
-    const newUser = new User({
-        position,
-        name,
-        company,
+    const newPost = new Post({
+        issue_type,
+        summary,
+        description,
+        priority,
         date: Date.now()
     });
     try {
-        await newUser.save();
+        await newPost.save();
         res.json({
             message: 'Data successfully saved',
             statusCode: 200,
-            name,
-            position,
-            company
+            issue_type,
+            summary,
+            description,
+            priority
         });
     } catch (error) {
         console.log('Error: ', error);
@@ -34,23 +50,6 @@ router.post('/add', async (req, res) => {
             statusCode: 500
         });
     }
-});
-
-
-router.get('/users', async (req, res) => {
-
-    try {
-        const users = await User.find({});
-
-        return res.json({
-            users
-        });
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Internal Server error'
-        });
-    }
-       
 });
 
 module.exports = router;
