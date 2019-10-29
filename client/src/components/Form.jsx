@@ -24,6 +24,7 @@ class Form extends Component {
       description: description,
       priority: priority
     } = this.state;
+    console.log(this.state);
     axios({
       url: '/add',
       method: 'POST',

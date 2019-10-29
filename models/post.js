@@ -5,7 +5,7 @@ const PostSchema = new Schema({
     issue_type: String,
     summary: String,
     description: String,
-    priority: Date
+    priority: String
 });
 
 const Post = mongoose.model('Post', PostSchema);
