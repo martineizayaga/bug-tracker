@@ -13,9 +13,8 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Form/>
           <Route path="/" exact component={DisplayPosts}/>
-          {/* <Route path="create" component={Form} /> */}
+          <Route path="/create" component={Form} />
         </div>
       </Router>
     );
