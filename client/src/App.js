@@ -5,26 +5,26 @@ import axios from 'axios';
 import './App.css';
 class App extends Component {
   state = {
-    users: []
+    posts: []
   }
 
   componentDidMount = () => {
-    this.fetchUsers();
+    this.fetchPosts();
   };
 
-  fetchUsers = () => {
+  fetchPosts = () => {
     axios.get('/posts')
       .then((response) => {
         const { posts } = response.data;
-        this.setState({ users: [...this.state.posts, ...posts] })
+        this.setState({ posts: [...this.state.posts, ...posts] })
       })
-      .catch(() => alert('Error fetching new users'));
+      .catch(() => alert('Error fetching new posts'));
   };
 
 
   addPost = ({ issue_type, summary, description, priority }) => {
     this.setState({
-      users: [...this.state.posts, { issue_type, summary, description, priority }]
+      posts: [...this.state.posts, { issue_type, summary, description, priority }]
     });
   };
 
