@@ -67,13 +67,6 @@ class Form extends Component {
             <MenuItem value={'New Feature'}>New Feature</MenuItem>
           </Select>
         </FormControl>
-        {/* <TextField
-          id="standard-dense"
-          value={this.state.issue_type}
-          label="Issue Type"
-          name="issue_type"
-          onChange={this.handleChange}
-        /> */}
 
         <TextField
           name="description"
@@ -91,13 +84,26 @@ class Form extends Component {
           label="Summary"
         />
 
-        <TextField
+        <FormControl>
+          <InputLabel>Priority</InputLabel>
+          <Select
+            value={this.state.priority}
+            onChange={(e) =>  this.setState({'priority': e.target.value})}
+            displayEmpty
+          >
+            <MenuItem value={'Highest'}>Highest</MenuItem>
+            <MenuItem value={'High'}>High</MenuItem>
+            <MenuItem value={'Low'}>Low</MenuItem>
+          </Select>
+        </FormControl>
+
+        {/* <TextField
           name="priority"
           value={this.state.priority}
           id="standard-dense"
           onChange={this.handleChange}
           label="Priority"
-        />
+        /> */}
 
         <Button variant="contained" color="primary" onClick={this.submit}> Submit </Button>
 
