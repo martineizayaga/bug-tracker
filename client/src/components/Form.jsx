@@ -3,12 +3,15 @@ import { TextField, Button } from '@material-ui/core';
 import axios from 'axios';
 
 class Form extends Component {
-  state = {
-    issue_type: '',
-    summary: '',
-    description: '',
-    priority: ''
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      issue_type: '',
+      summary: '',
+      description: '',
+      priority: ''
+    };
+  }
 
   handleChange = e => {
     const name = e.target.name;
@@ -36,7 +39,6 @@ class Form extends Component {
       }
     })
       .then((response) => {
-        this.props.addPost(response.data);
         this.setState({
           issue_type: '',
           summary: '',
@@ -45,11 +47,12 @@ class Form extends Component {
         });
       })
       .catch(() => alert('Failed uploading data'))
+      this.props.history.push('/');
   };
   render() {
     return (
       <form className="form noValidate" autoComplete="off" onSubmit={this.submit}>
-        <h2>Please, Tell us about you</h2>
+        <h2>Create issue</h2>
         <TextField
           id="standard-dense"
           value={this.state.issue_type}
