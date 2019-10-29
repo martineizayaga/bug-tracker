@@ -7,11 +7,15 @@ const { isEmpty } = require('lodash');
 
 
 class DisplayPosts extends Component {
-    state = {
-        posts: []
+    constructor(props) {
+        super(props);
+        this.state = {
+            posts: []
+        }
     }
     
     componentDidMount = () => {
+        console.log('display posts props', this.props)
         this.fetchPosts();
     };
 
