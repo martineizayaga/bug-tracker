@@ -1,0 +1,22 @@
+.tableWrapper {
+    overflow: auto;
+    width: 100%;
+}
+
+.title {
+    float: left;
+}
+
+.createButton {
+    /* float: right; */
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.header {
+    width: 100%;
+    height: 20px;
+    position: relative;
+}

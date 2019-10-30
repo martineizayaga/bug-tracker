@@ -2,6 +2,7 @@
 .form, .users {
   margin: 0px auto;
   width: 50%;
+  min-width: 500px;
 }
 
 .form {

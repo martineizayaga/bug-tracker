@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, InputLabel, MenuItem, FormControl, FormHelperText, Select, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 class Form extends Component {
@@ -16,6 +17,7 @@ class Form extends Component {
   handleChange = e => {
     const name = e.target.name;
     const value = e.target.value;
+    console.log(name, value);
     this.setState({ [name]: value });
   };
 
@@ -53,13 +55,18 @@ class Form extends Component {
     return (
       <form className="form noValidate" autoComplete="off" onSubmit={this.submit}>
         <h2>Create issue</h2>
-        <TextField
-          id="standard-dense"
-          value={this.state.issue_type}
-          label="Issue Type"
-          name="issue_type"
-          onChange={this.handleChange}
-        />
+        <FormControl>
+          <InputLabel>Issue Type</InputLabel>
+          <Select
+            value={this.state.issue_type}
+            onChange={(e) =>  this.setState({'issue_type': e.target.value})}
+            displayEmpty
+          >
+            <MenuItem value={'Improvement'}>Improvement</MenuItem>
+            <MenuItem value={'Task'}>Task</MenuItem>
+            <MenuItem value={'New Feature'}>New Feature</MenuItem>
+          </Select>
+        </FormControl>
 
         <TextField
           name="description"
@@ -77,13 +84,26 @@ class Form extends Component {
           label="Summary"
         />
 
-        <TextField
+        <FormControl>
+          <InputLabel>Priority</InputLabel>
+          <Select
+            value={this.state.priority}
+            onChange={(e) =>  this.setState({'priority': e.target.value})}
+            displayEmpty
+          >
+            <MenuItem value={'Highest'}>Highest</MenuItem>
+            <MenuItem value={'High'}>High</MenuItem>
+            <MenuItem value={'Low'}>Low</MenuItem>
+          </Select>
+        </FormControl>
+
+        {/* <TextField
           name="priority"
           value={this.state.priority}
           id="standard-dense"
           onChange={this.handleChange}
           label="Priority"
-        />
+        /> */}
 
         <Button variant="contained" color="primary" onClick={this.submit}> Submit </Button>
 
