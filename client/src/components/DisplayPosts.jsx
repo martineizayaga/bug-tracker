@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import { Table, TableBody, TableCell, TableHead, TableRow, Button } from '@material-ui/core';
 import { Table, Button, Row, Col } from 'antd';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import styles from './DisplayPosts.module.css';
