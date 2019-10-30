@@ -1,56 +1,17 @@
 const express = require('express');
 const { isEmpty } = require('lodash');
-const User = require('../models/user');
+const Post = require('../models/post');
 const router = express.Router();
+const posts = require('../controllers/post.controller.js');
 
-router.post('/add', async (req, res) => {
-    if (isEmpty(req.body)) {
-        return res.status(403).json({
-            message: 'Body should not be empty',
-            statusCode: 403
-        });
-    }
-    const { name, position, company } = req.body;
+router.get('/posts', posts.get_all);
 
-    const newUser = new User({
-        position,
-        name,
-        company,
-        date: Date.now()
-    });
-    try {
-        await newUser.save();
-        res.json({
-            message: 'Data successfully saved',
-            statusCode: 200,
-            name,
-            position,
-            company
-        });
-    } catch (error) {
-        console.log('Error: ', error);
-        res.status(500).json({
-            message: 'Internal Server error',
-            statusCode: 500
-        });
-    }
-});
+router.post('/add', posts.create);
 
+router.get('/post/:postId', posts.get_post);
 
-router.get('/users', async (req, res) => {
+router.put('/post/:postId', posts.update);
 
-    try {
-        const users = await User.find({});
-
-        return res.json({
-            users
-        });
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Internal Server error'
-        });
-    }
-       
-});
+router.delete('/post/:postId', posts.delete);
 
 module.exports = router;
