@@ -69,8 +69,8 @@ function DisplayPosts() {
                 <Col span={5}>
                     <h2>All Issues</h2>
                 </Col>
-                <Col span={3} offset={16}>
-                    <Link to="/create"><Button type="primary">Create</Button></Link>
+                <Col span={3} offset={15}>
+                    <Link to="/create"><Button style={{marginRight: 20}} type="primary">Create</Button></Link>
                 </Col>
             </Row>
             <div className={styles.tableWrapper}>
