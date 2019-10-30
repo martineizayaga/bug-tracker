@@ -1,20 +1,20 @@
 const Post = require('../models/post.js');
 
 exports.create = async (req, res) => {
-    console.log('create')
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
         return res.status(403).json({
             message: 'Body should not be empty',
             statusCode: 403
         });
     }
-    const { issue_type, summary, description, priority } = req.body;
+    const { issue_type, summary, description, priority, done } = req.body;
 
     const newPost = new Post({
         issue_type,
         summary,
         description,
         priority,
+        done,
         date: Date.now()
     });
     try {
@@ -25,7 +25,8 @@ exports.create = async (req, res) => {
             issue_type,
             summary,
             description,
-            priority
+            priority,
+            done
         });
     } catch (error) {
         console.log('Error: ', error);
@@ -61,7 +62,8 @@ exports.update = (req, res) => {
         issue_type: req.body.issue_type,
         summary: req.body.summary,
         description: req.body.description,
-        priority: req.body.description
+        priority: req.body.description,
+        done: req.body.done,
     }, {new: true})
     .then(post => {
         if (!post) {
@@ -99,6 +101,27 @@ exports.delete = (req, res) => {
         }
         return res.status(500).send({
             message: "Could not delete post with id " + req.params.postId
+        });
+    });
+};
+
+exports.get_post = (req, res) => {
+    Post.findById(req.params.postId)
+    .then(post => {
+        if (!post) {
+            return res.status(404).send({
+                message: "Post not found with id " + req.params.postId,
+            });
+        }
+        res.send(post)
+    }).catch(err => {
+        if (err.kind === "ObjectId" || err.name === "NotFound") {
+            return res.status(404).send({
+                message: "Post not found with id " + req.params.postId
+            });
+        }
+        return res.status(500).send({
+            message: "Error retrieving post with id " + req.params.postId
         });
     });
 };
