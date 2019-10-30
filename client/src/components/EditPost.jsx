@@ -1,6 +1,5 @@
-import React, { Component, useState, setState, useEffect } from 'react';
-import { TextField, InputLabel, MenuItem, FormControl, FormHelperText, Select, Button, Checkbox } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
+import { TextField, InputLabel, MenuItem, FormControl, Select, Button, Checkbox } from '@material-ui/core';
 import axios from 'axios';
 
 function EditPost(props) {
