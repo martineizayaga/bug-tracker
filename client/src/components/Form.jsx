@@ -10,7 +10,7 @@ class Form extends Component {
       issue_type: '',
       summary: '',
       description: '',
-      priority: ''
+      priority: '',
     };
   }
 
@@ -27,7 +27,7 @@ class Form extends Component {
       issue_type: issue_type,
       summary: summary,
       description: description,
-      priority: priority
+      priority: priority,
     } = this.state;
     console.log(this.state);
     axios({
@@ -37,7 +37,8 @@ class Form extends Component {
         issue_type: issue_type,
         summary: summary,
         description: description,
-        priority: priority
+        priority: priority,
+        done: false
       }
     })
       .then((response) => {
@@ -45,7 +46,7 @@ class Form extends Component {
           issue_type: '',
           summary: '',
           description: '',
-          priority: ''
+          priority: '',
         });
       })
       .catch(() => alert('Failed uploading data'))
@@ -96,14 +97,6 @@ class Form extends Component {
             <MenuItem value={'Low'}>Low</MenuItem>
           </Select>
         </FormControl>
-
-        {/* <TextField
-          name="priority"
-          value={this.state.priority}
-          id="standard-dense"
-          onChange={this.handleChange}
-          label="Priority"
-        /> */}
 
         <Button variant="contained" color="primary" onClick={this.submit}> Submit </Button>
 
