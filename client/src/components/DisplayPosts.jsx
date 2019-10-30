@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Table, TableBody, TableCell, TableHead, TableRow, Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+// import { Table, TableBody, TableCell, TableHead, TableRow, Button } from '@material-ui/core';
+import { Table, Button, Row, Col } from 'antd';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import axios from 'axios';
+
+import styles from './DisplayPosts.module.css';
 
 const { isEmpty } = require('lodash');
 
@@ -21,6 +24,7 @@ class DisplayPosts extends Component {
         axios.get('/posts')
           .then((response) => {
             const { posts } = response.data;
+            console.log('posts', posts)
             this.setState({ posts: [...this.state.posts, ...posts] })
           })
           .catch(() => alert('Error fetching new posts'));
@@ -31,29 +35,49 @@ class DisplayPosts extends Component {
         const allPosts = this.state.posts;
         const posts = !isEmpty(allPosts) ? allPosts : [];
 
+        const columns = [
+            {
+                title: 'Issue Type',
+                dataIndex: 'issue_type',
+                key: 'issue_type'
+            },
+            {
+                title: 'Summary',
+                dataIndex: 'summary',
+                key: 'summary'
+            },
+            {
+                title: 'Description',
+                dataIndex: 'description',
+                key: 'description'
+            },
+            {
+                title: 'Priority',
+                dataIndex: 'priority',
+                key: 'priority'
+            },
+            {
+                title: 'Action',
+                key: 'action',
+                render: (text, record) => (
+                    <span>{record._id}</span>
+                )
+            }
+        ]
+
         return (
             <div className="users">
-                {!isEmpty(posts) ? <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Issue Type</TableCell>
-                            <TableCell align="right">Summary</TableCell>
-                            <TableCell align="right">Description</TableCell>
-                            <TableCell align="right">Priority</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {posts.map(({ issue_type, description, summary, priority }, key) => (
-                            <TableRow key={key}>
-                                <TableCell component="th" scope="row"> {issue_type ? issue_type : 'No Issue Type Found'} </TableCell>
-                                <TableCell align="right">{summary ? summary : 'No Summary Found'}</TableCell>
-                                <TableCell align="right">{description ? description : 'No Description Found'}</TableCell>
-                                <TableCell align="right">{priority ? priority : "No Priority Found"}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table> : null}
-                <Button variant="contained" to="/create" component={Link}>Create</Button>
+                <Row>
+                    <Col span={3}>
+                        <h1>Issues</h1>
+                    </Col>
+                    <Col span={3} offset={18} style={{marginTop: 10}}>
+                        <Link to="/create"><Button>Create</Button></Link>
+                    </Col>
+                </Row>
+                <div className={styles.tableWrapper}>
+                    <Table dataSource={posts} columns={columns}/>
+                </div>
             </div>
         );
     }
