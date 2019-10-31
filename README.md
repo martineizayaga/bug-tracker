@@ -21,3 +21,7 @@ Open another terminal in the same directory
 `npm start`
 
 The app should be up and running!
+
+## 🙇‍ Motivation to build app
+I wanted to create some sort of a CRUD app on the MERN stack without making a todo app.\
+I thought this app would be interesting to see how it builds upon itself.
