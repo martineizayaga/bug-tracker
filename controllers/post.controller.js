@@ -62,7 +62,7 @@ exports.update = (req, res) => {
         issue_type: req.body.issue_type,
         summary: req.body.summary,
         description: req.body.description,
-        priority: req.body.description,
+        priority: req.body.priority,
         done: req.body.done,
     }, {new: true})
     .then(post => {
