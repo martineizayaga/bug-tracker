@@ -34,6 +34,13 @@ function EditPost(props) {
     }
 
     function submit(e) {
+      console.log({
+        'issue_type': issue_type,
+        'summary': summary,
+        'description': description,
+        'priority': priority,
+        'done': done
+      });
         axios({
             url: '/post/' + props.match.params.postId,
             method: 'PUT',
@@ -92,6 +99,7 @@ function EditPost(props) {
           <InputLabel>Priority</InputLabel>
           <Select
             value={priority}
+            name="priority"
             onChange={(e) =>  setPriority(e.target.value)}
             displayEmpty
           >

@@ -8,7 +8,10 @@ const PostSchema = new Schema({
     },
     summary: String,
     description: String,
-    priority: String,
+    priority: {
+        type: String,
+        enum: ['Highest', 'High', 'Low']
+    },
     done: Boolean
 });
 
